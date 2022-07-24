@@ -6,6 +6,7 @@ const productRoute = require('../router/adminRouter/product.route')
 const cartRoute = require('./userRouter/cartRoute')
 const orderRoute = require('./userRouter/order.route')
 const userRoute = require('./userRouter/user.route')
+const AdminOrderRoute = require('./adminRouter/order.route')
 
 
 /*user route */
@@ -18,6 +19,7 @@ appRouter.use('/order', IsUser, orderRoute)
 appRouter.use('/admin', adminRoute)
 appRouter.use('/category', categoryRoute)
 appRouter.use('/product', productRoute)
+appRouter.use('/admin/order', AdminOrderRoute)
 
 
 

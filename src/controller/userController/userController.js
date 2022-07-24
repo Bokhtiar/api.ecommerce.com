@@ -12,14 +12,7 @@ const login = async (req, res, next) => {
             message: "Invalid Email || Password"
         })
     }
-    /* Password Check */
-    const existPassword = await users.findOne({ password });
-    if (!existPassword) {
-      res.status(404).json({
-        status: true,
-        message: "Email or Password Invalid...!",
-      });
-    }
+  
 
     /* Generate JWT token */
     const token = await jwt.sign(

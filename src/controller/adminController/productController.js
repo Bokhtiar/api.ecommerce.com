@@ -4,12 +4,12 @@ const { FileUpload, Host, DeleteFile } = require("../../helplers/index");
 /*list */
 const list = async (req, res, next) => {
   try {
-    const item = [];
+    const items = [];
     const results = await products.find();
     if (results && results.length > 0) {
       for (let i = 0; i < results.length; i++) {
         const element = results[i];
-        item.push({
+        items.push({
           _id: element._id,
           name: element.name,
           image: element.image
@@ -25,7 +25,7 @@ const list = async (req, res, next) => {
 
     res.status(200).json({
       status: true,
-      data: item,
+      data: items,
     });
   } catch (error) {
     console.log(error);
@@ -45,7 +45,7 @@ const store = async (req, res, next) => {
         status: false,
         message: "Failed to upload image",
       });
-    }
+    }  
 
     const newProduct = new products({
       name,

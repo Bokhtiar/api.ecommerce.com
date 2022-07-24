@@ -3,11 +3,11 @@ const {Schema, model, mongoose } = require('mongoose')
 
 const newSchema = new Schema({
     product_id:{
-        type: mongoose.Schema.Types.ObjectId,
+        type: mongoose.Types.ObjectId,
         ref: "products",
     },
     user_id:{
-        type: mongoose.Schema.Types.ObjectId,
+        type: mongoose.Types.ObjectId,
         ref: "users",
         require: true
     },

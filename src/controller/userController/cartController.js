@@ -5,10 +5,13 @@ const carts = require('../../models/cart.model')
 
 const list = async(req, res, next) => {
     try {
+        const items = [];
         const results = await carts.find()
                             .where('user_id', req.user.id)
                             .where('order_id', null)
                             .limit(5)
+                            .populate('product_id', "name image price -_id")
+                            .populate('user_id')
         
         res.status(200).json({
             status:true,

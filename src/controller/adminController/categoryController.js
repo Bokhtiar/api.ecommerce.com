@@ -50,7 +50,7 @@ const store = async (req, res, next) => {
     await newCategory.save();
     res.status(200).json({
       status: true,
-      message: "Category Added Successfully...!",
+      message: "Category Added Successfully.!",
     });
   } catch (error) {
     console.log(error);
@@ -61,19 +61,21 @@ const store = async (req, res, next) => {
 /*status change*/
 const status = async (req, res, next) => {
   try {
-    const { id } = req.params;
-    const IsStatus = await categories.findOne({ id });
+    const { id } = req.params
+   
+    const IsStatus = await categories.findById(id)
+
     if (IsStatus.cat_status == false) {
-      IsStatus.cat_status = true;
-      await IsStatus.save();
-      res.status(200).json({
+      IsStatus.cat_status = true
+      IsStatus.save()
+      res.status(200).json({ 
         status: true,
         message: "Category Status Is Active...!",
       });
     } else {
-      IsStatus.cat_status = false;
-      await IsStatus.save();
-      res.status(200).json({
+      IsStatus.cat_status = false
+      IsStatus.save();
+      res.status(200).json({ 
         status: true,
         message: "Category Status Is Deactive...!",
       });
