@@ -4,11 +4,21 @@ const { FileUpload, Host, DeleteFile } = require("../../helplers/index");
 /*list */
 const list = async (req, res, next) => {
   try {
+    let currentPage = parseInt(req.query.page) || 1
+    let itemPerPage = 2
     const items = [];
-    const results = await products.find();
+    const results = await products.find()
+                          .skip((itemPerPage * currentPage) - itemPerPage)
+                          .limit(itemPerPage);
+    let totalProduct = await products.countDocuments()
+    let totalPage = parseInt(totalProduct / itemPerPage)
+
+    console.log("totalpage", totalPage);
+
     if (results && results.length > 0) {
       for (let i = 0; i < results.length; i++) {
         const element = results[i];
+        
         items.push({
           _id: element._id,
           name: element.name,
@@ -26,6 +36,9 @@ const list = async (req, res, next) => {
     res.status(200).json({
       status: true,
       data: items,
+      totalPage: totalPage,
+      currentPage: currentPage,
+      itemPerPage: itemPerPage
     });
   } catch (error) {
     console.log(error);
