@@ -5,15 +5,13 @@ const { FileUpload, Host, DeleteFile } = require("../../helplers/index");
 const list = async (req, res, next) => {
   try {
     let currentPage = parseInt(req.query.page) || 1
-    let itemPerPage = 2
+    let itemPerPage = 12
     const items = [];
     const results = await products.find()
                           .skip((itemPerPage * currentPage) - itemPerPage)
                           .limit(itemPerPage);
     let totalProduct = await products.countDocuments()
     let totalPage = parseInt(totalProduct / itemPerPage)
-
-    console.log("totalpage", totalPage);
 
     if (results && results.length > 0) {
       for (let i = 0; i < results.length; i++) {

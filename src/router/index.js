@@ -7,12 +7,15 @@ const cartRoute = require('./userRouter/cartRoute')
 const orderRoute = require('./userRouter/order.route')
 const userRoute = require('./userRouter/user.route')
 const AdminOrderRoute = require('./adminRouter/order.route')
+const UserCategoryRoute = require('./userRouter/category.route')
+
 
 
 /*user route */
 appRouter.use('/user', userRoute)
 appRouter.use('/cart', IsUser, cartRoute)
 appRouter.use('/order', IsUser, orderRoute)
+appRouter.use('/category', UserCategoryRoute)
 
 
 /*admin route*/
