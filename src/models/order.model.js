@@ -6,30 +6,61 @@ const newSchema = new Schema({
         ref: "users",
         require: true
     },
-    name:{
-        type: String,
-        require: true
-    },
     email: {
         type: String,
         require: true
     },
-    phone: {
-        type: Number,
+    f_name:{
+        type: String,
         require: true
     },
+
+    l_name:{
+        type: String,
+        require: true
+    },
+
     location: {
         type: String,
         require: true
     },
-    payment_number: {
+
+    location2: {
         type: String,
         require: true
     },
+
+    postCode: {
+        type: String,
+        require: true
+    },
+    
+    phone: {
+        type: Number,
+        require: true
+    },
+    
     payment_Type: {
         type: String,
         require: true
     },
+
+    
+    transection_id: {
+        type: String,
+        require: true
+    },
+
+    payment_number: {
+        type: String,
+        require: true
+    },
+
+    note: {
+        type: String,
+        require: true
+    },
+    
     order_Status:{
         type:Boolean,
         default: true

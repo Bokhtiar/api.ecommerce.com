@@ -22,7 +22,10 @@ const list = async(req, res, next) => {
 const store = async(req, res, next) => {
     try {
         const {
-            name, email, phone, location, payment_number, payment_Type
+            f_name, l_name, email, phone, 
+            location, location2, payment_number, 
+            postCode, payment_Type, transection_id,
+            note
         }=req.body
 
         const results = await carts.find()
@@ -37,14 +40,20 @@ const store = async(req, res, next) => {
             })
         }
         const newOrder = new orders({
-            name,
+            f_name,
+            l_name,
             email,
             phone,
             location,
+            location2,
+            postCode,
             payment_number,
+            transection_id,
             payment_Type,
+            note,
             user_id: req.user.id,
         })
+        
         if(newOrder){
             results.forEach(element => {
                 element.order_id = newOrder._id
