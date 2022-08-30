@@ -1,6 +1,21 @@
 const users = require("../../models/users.model");
-const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken');
 
+
+
+/**List */
+const List = async (req, res, next) => {
+  try {
+    const results = await users.find()
+    res.status(200).json({
+      status: true,
+      data: results,
+    })
+  } catch (error) {
+    console.log(error);
+    next(error)
+  }
+}
 /* Login */
 const login = async (req, res, next) => {
   try {
@@ -71,4 +86,5 @@ const register = async (req, res, next) => {
 module.exports = {
   login,
   register,
+  List
 };

@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken')
 
 const IsUser = async (req, res, next) => {
-    console.log('user', req)
+    console.log('user asd', req)
    try {
        
         const token = await req.headers.authorization
@@ -20,7 +20,7 @@ const IsUser = async (req, res, next) => {
         }else {
             return res.status(410).json({
                 status: false,
-                errors: { message: 'You have no permission to access.' }
+                errors: { message: 'You have no permission to access. sss' }
             })
         }
    } catch (error) {

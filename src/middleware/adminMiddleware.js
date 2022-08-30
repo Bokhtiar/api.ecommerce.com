@@ -18,7 +18,7 @@ const IsAdmin = async (req, res, next) => {
         }else {
             return res.status(410).json({
                 status: false,
-                errors: { message: 'You have no permission to access.' }
+                errors: { message: 'You have no permission to access. as' }
             })
         }
 

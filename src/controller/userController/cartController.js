@@ -1,11 +1,10 @@
 const carts = require('../../models/cart.model')
 
-
 /*cart list */
 
 const list = async(req, res, next) => {
     try {
-        const items = [];
+        console.log('test', 'test')
         const results = await carts.find()
                             .where('user_id', req.user.id)
                             .where('order_id', null)
@@ -37,7 +36,8 @@ const store = async(req, res, next) => {
             message: "Cart Added Successfully...!"
         })
     } catch (error) {
-        console.log(error); 
+        console.log(error);
+        next(error)
     }
 }
 
@@ -56,8 +56,48 @@ const destroy = async(req, res, next) => {
     }
 }
 
+/**cart item quantity increment  */
+const increment = async(req, res, next) => {
+    try {
+        const { id } = req.params
+        const result = await carts.findById(id)
+        const qty = result.quantity + 1
+        result.quantity = qty
+        result.save()
+        
+        res.status(201).json({
+            status: true,
+            data: qty,
+            message: "Quantity Updated Successfully."
+        })
+    } catch (error) {
+        console.log(error);
+        next(error)
+    }
+}
+
+/**decrement cart quantity update */
+const decrement = async(req, res, next) => {
+    try {
+        const {id} = req.params        
+        const result = await carts.findById(id)
+        const qty = result.quantity - 1
+        result.quantity = qty
+        result.save()
+        res.status(201).json({
+            status: true,
+            message: "Quntity Decrement Successfully."
+        })
+    } catch (error) {
+        console.log(error)
+        next(error)
+    }
+}
+
 module.exports = {
     store,
     list,
+    increment,
+    decrement,
     destroy
 }
