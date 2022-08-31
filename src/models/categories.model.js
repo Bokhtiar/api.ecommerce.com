@@ -13,6 +13,10 @@ const categorySchema = new Schema({
     trim: true,
     require: true,
   },
+  home: {
+    type: Boolean,
+    default: false,
+  },
   cat_status: {
     type: Boolean,
     default: false,

@@ -13,6 +13,7 @@ const index = async (req, res, next) => {
         items.push({
           _id: element._id,
           name: element.name,
+          home: element.home,
           cat_status: element.cat_status,
           image: element.image
             ? Host(req) + "uploads/category/" + element.image
@@ -148,10 +149,38 @@ const destroy = async (req, res, next) => {
   }
 };
 
+/**-----------show home or not show in home */
+const showHome = async(req, res, next) => {
+  try {
+    const { id } = req.params
+   
+    const IsHome = await categories.findById(id)
+
+    if (IsHome.home == false) {
+      IsHome.home = true
+      IsHome.save()
+      res.status(200).json({ 
+        status: true,
+        message: "Category Home Status Is Active...!",
+      });
+    } else {
+      IsHome.home = false
+      IsHome.save();
+      res.status(200).json({ 
+        status: true,
+        message: "Category Home Status Is Deactive...!",
+      });
+    }
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
+}
 module.exports = {
   index,
   store,
   update,
   status,
   destroy,
+  showHome
 };
