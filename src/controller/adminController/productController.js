@@ -170,8 +170,49 @@ const destroy = async (req, res, next) => {
   }
 };
 
+/**--------------without pagination all product show----------- */
+const all = async(req, res, next) => {
+  try {
+
+    const items = [];
+    const results = await products.find()
+    let totalProduct = await products.countDocuments()
+    let totalPage = parseInt(totalProduct / itemPerPage)
+
+    if (results && results.length > 0) {
+      for (let i = 0; i < results.length; i++) {
+        const element = results[i];
+        
+        items.push({
+          _id: element._id,
+          name: element.name,
+          image: element.image
+            ? Host(req) + "uploads/product/" + element.image
+            : null,
+          category_id: element.category_id,
+          price: element.price,
+          description: element.description,
+          product_status: element.product_status,
+        });
+      }
+    }
+
+    res.status(200).json({
+      status: true,
+      data: items,
+      totalPage: totalPage,
+      currentPage: currentPage,
+      itemPerPage: itemPerPage
+    });
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
+}
+
 module.exports = {
   list,
+  all,
   store,
   show,
   update,

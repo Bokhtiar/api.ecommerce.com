@@ -8,7 +8,6 @@ const list = async(req, res, next) => {
         const results = await carts.find()
                             .where('user_id', req.user.id)
                             .where('order_id', null)
-                            .limit(5)
                             .populate('product_id', "name image price -_id")
                             .populate('user_id')
         
@@ -94,10 +93,30 @@ const decrement = async(req, res, next) => {
     }
 }
 
+/**auth user cart item number */
+const Number = async(req, res, next) => {
+    try {
+        const items = await carts.find()
+                            .where('user_id', req.user.id)
+                            .where('order_id', null)
+                            .count()
+        console.log("item sd",items)
+        res.status(201).json({
+            status: true,
+            data: items
+        })
+
+    } catch (error) {
+        console.log(error);
+        next(error)
+    }
+}
+
 module.exports = {
     store,
     list,
     increment,
     decrement,
-    destroy
+    destroy,
+    Number
 }

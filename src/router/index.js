@@ -8,6 +8,7 @@ const orderRoute = require('./userRouter/order.route')
 const userRoute = require('./userRouter/user.route')
 const AdminOrderRoute = require('./adminRouter/order.route')
 const UserCategoryRoute = require('./userRouter/category.route')
+const ProductRouteUser = require('./userRouter/product.route')
 
 
 
@@ -15,13 +16,14 @@ const UserCategoryRoute = require('./userRouter/category.route')
 appRouter.use('/user', userRoute)
 appRouter.use('/cart', IsUser, cartRoute)
 appRouter.use('/order', IsUser, orderRoute)
+appRouter.use('/product', ProductRouteUser)
 appRouter.use('/category', UserCategoryRoute)
 
 
 /*admin route*/
 appRouter.use('/admin', adminRoute)
 appRouter.use('/category', categoryRoute)
-appRouter.use('/product', productRoute)
+appRouter.use('/admin/product', productRoute)
 appRouter.use('/admin/order', AdminOrderRoute)
 
 
