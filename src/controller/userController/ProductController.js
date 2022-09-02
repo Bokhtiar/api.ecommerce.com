@@ -82,36 +82,34 @@ const Paginate = async (req, res, next) => {
   }
 };
 
-/**----------product list without paginate ------------------- */
-const ProductList = async (req, res, next) => {
+/*show */
+const show = async (req, res, next) => {
   try {
-   
-    const items = [];
-    const results = await products.find()
-              
-   
-
-    if (results && results.length > 0) {
-      for (let i = 0; i < results.length; i++) {
-        const element = results[i];
-        
-        items.push({
-          _id: element._id,
-          name: element.name,
-          image: element.image
-            ? Host(req) + "uploads/product/" + element.image
-            : null,
-          category_id: element.category_id,
-          price: element.price,
-          description: element.description,
-          product_status: element.product_status,
-        });
-      }
+    const item = [];
+    const { id } = req.params;
+    const element = await products.findById(id);
+    if (element) {
+      item.push({
+        _id: element._id,
+        name: element.name,
+        image: element.image
+          ? Host(req) + "uploads/product/" + element.image
+          : null,
+        category_id: element.category_id,
+        price: element.price,
+        description: element.description,
+        product_status: element.product_status,
+      });
+    } else {
+      res.status(404).json({
+        status: false,
+        message: "Product Not Found",
+      });
     }
 
-    res.status(200).json({
+    res.status(201).json({
       status: true,
-      data: items,
+      data: item,
     });
   } catch (error) {
     console.log(error);
@@ -120,9 +118,42 @@ const ProductList = async (req, res, next) => {
 };
 
 
-/*-----------------*/
+const CategoryProductList = async(req, res, next) => {
+  try {
+  const results = await products.find()
+  const items = [];
+
+  if (results && results.length > 0) {
+    for (let i = 0; i < results.length; i++) {
+      const element = results[i];
+      
+      items.push({
+        _id: element._id,
+        name: element.name,
+        image: element.image
+          ? Host(req) + "uploads/product/" + element.image
+          : null,
+        category_id: element.category_id,
+        price: element.price,
+        description: element.description,
+        product_status: element.product_status,
+      });
+    }
+  }
+  res.status(201).json({
+    status: true,
+    data: items
+  })    
+  } catch (error) {
+    console.log(error);
+    next(error)
+  }
+}
+
 module.exports = {
     CategoryProduct,
+    CategoryProductList,
     Paginate,
-    ProductList
+
+    show
 }
