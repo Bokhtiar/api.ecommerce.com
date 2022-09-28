@@ -14,7 +14,7 @@ const AdminContactRoute = require('./adminRouter/contact.route')
 
 
 
-/*user route */
+/*user route */ 
 appRouter.use('/user', userRoute)
 appRouter.use('/cart', IsUser, cartRoute)
 appRouter.use('/order', IsUser, orderRoute)
@@ -22,7 +22,7 @@ appRouter.use('/product', ProductRouteUser)
 appRouter.use('/category', UserCategoryRoute)
 appRouter.use('/contact', UserContactRoute)
 
-
+ 
 /*admin route*/
 appRouter.use('/admin', adminRoute)
 appRouter.use('/category', categoryRoute)

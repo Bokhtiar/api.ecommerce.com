@@ -71,7 +71,30 @@ const store = async(req, res, next) => {
     }
 }
 
+
+/**order delete */
+const Destroy = async(req, res, next) => {
+    try {
+        const { id } = req.params;
+        /**exist orders */
+        const isRemoved = await orders.findByIdAndDelete(id)
+        if (!isRemoved) {
+            return res.status(501).json({
+              status: false,
+              message: "Something going wrong.",
+            });
+        }
+        res.status(201).json({
+            status: true,
+            message: "Order deleted successffully"
+        })
+    } catch (error) {
+        console.log(error)
+        next(error)
+    }
+}
 module.exports = {
     store,
-    list
+    list,
+    Destroy
 } 
