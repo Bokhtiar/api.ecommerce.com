@@ -19,25 +19,39 @@ const List = async (req, res, next) => {
 /* Login */
 const login = async (req, res, next) => {
   try {
-    const { email, password } = req.body;
-    const account = await users.findOne({email})
-    if(!account){
-        res.status(404).json({
-            status: true,
-            message: "Invalid Email || Password"
-        })
+    const {
+      email,
+      password
+    } = req.body;
+    const account = await users.findOne({
+      email
+    })
+    if (!account) {
+      res.status(404).json({
+        status: true,
+        message: "Invalid Email || Password"
+      })
     }
-  
 
+    /* Password Check */
+    const existPassword = await users.findOne({
+      password
+    });
+    if (!existPassword) {
+      res.status(404).json({
+        status: true,
+        message: "Email or Password Invalid...!",
+      });
+    }
     /* Generate JWT token */
-    const token = await jwt.sign(
-      {
+    const token = await jwt.sign({
         id: account._id,
         name: account.name,
         role: account.role,
       },
-      process.env.JWT_SECRET,
-      { expiresIn: "1d" }
+      process.env.JWT_SECRET, {
+        expiresIn: "1d"
+      }
     );
 
     res.status(200).json({
@@ -57,9 +71,16 @@ const login = async (req, res, next) => {
 /* register */
 const register = async (req, res, next) => {
   try {
-    const { name, email, password, role } = req.body;
+    const {
+      name,
+      email,
+      password,
+      role
+    } = req.body;
 
-    const existUser = await users.findOne({ email });
+    const existUser = await users.findOne({
+      email
+    });
     if (existUser) {
       res.status(404).json({
         status: false,

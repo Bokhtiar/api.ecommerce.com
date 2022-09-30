@@ -6,7 +6,7 @@ const newSchema = new Schema({
         require: true,
     },
     email:{
-        type: String,
+        type: String, 
         require: true,
         unique : true
     },
@@ -16,7 +16,8 @@ const newSchema = new Schema({
     },
     role:{
         type: String,
-        require: true
+        require: true,
+        default: "user"
     }
 }, {
     timestamps:true
