@@ -17,7 +17,7 @@ const newSchema = new Schema({
 
     l_name:{
         type: String,
-        require: true
+        require: false,
     },
 
     location: {

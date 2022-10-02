@@ -104,8 +104,31 @@ const register = async (req, res, next) => {
   }
 };
 
+/**profile */
+const Profile = async (req, res, next) => {
+  try {
+    /** user check */
+    const existUser = await users.findById(req.user.id)
+    console.log(existUser)
+    if(!existUser){
+      res.status(404).json({
+        status: true,
+        message: "Invalid User",
+      });
+    }
+
+    res.status(201).json({
+      status: true,
+      data: existUser,
+    });
+  } catch (error) {
+    console.log(error)
+    next(error)
+  }
+}
 module.exports = {
   login,
   register,
-  List
+  List,
+  Profile
 };

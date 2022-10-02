@@ -150,10 +150,46 @@ const CategoryProductList = async(req, res, next) => {
   }
 }
 
+/**search */
+const Search = async(req, res, next) => {
+  try {
+    const items = [];
+    const {search} = req.params 
+    var query = { name: search };
+    const results = await products.find(query)
+
+    if (results && results.length > 0) {
+      for (let i = 0; i < results.length; i++) {
+        const element = results[i];
+        
+        items.push({
+          _id: element._id,
+          name: element.name,
+          image: element.image
+            ? Host(req) + "uploads/product/" + element.image
+            : null,
+          category_id: element.category_id,
+          price: element.price,
+          description: element.description,
+          product_status: element.product_status,
+        });
+      }
+    }
+    
+    res.status(201).json({
+      status: true,
+      data: results
+    }) 
+  } catch (error) {
+    console.log(error)
+    next(error)
+  }
+}
+
 module.exports = {
     CategoryProduct,
     CategoryProductList,
     Paginate,
-
+    Search,
     show
 }
