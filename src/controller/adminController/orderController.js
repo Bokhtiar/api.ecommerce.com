@@ -48,7 +48,8 @@ const Destroy = async(req, res, next) => {
             message: "Delete Successfully Done"
         })
     } catch (error) {
-        
+        console.log(error)
+        next(error)
     }
 }
 
