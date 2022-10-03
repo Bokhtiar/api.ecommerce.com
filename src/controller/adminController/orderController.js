@@ -32,5 +32,25 @@ const Show = async(req, res, next) => {
     }
 }
 
-module.exports ={Index,Show}
+/**order destroy */
+const Destroy = async(req, res, next) => {
+    try {
+        const {id} = req.params
+        const isDelete =  await orders.findByIdAndDelete(id)
+        if(!isDelete){
+            res.status(404).json({
+                status: false,
+                message : "Someting wrong"
+            })
+        }
+        res.status(200).json({
+            status:true,
+            message: "Delete Successfully Done"
+        })
+    } catch (error) {
+        
+    }
+}
+
+module.exports ={Index,Show, Destroy}
     

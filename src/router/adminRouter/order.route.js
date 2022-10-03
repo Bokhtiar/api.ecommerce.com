@@ -3,5 +3,6 @@ const OrderController = require('../../controller/adminController/orderControlle
 
     AdminOrderRoute.get('/', OrderController.Index);
     AdminOrderRoute.get('/:id', OrderController.Show);
+    AdminOrderRoute.delete('/:id', OrderController.Destroy);
 
 module.exports = AdminOrderRoute
