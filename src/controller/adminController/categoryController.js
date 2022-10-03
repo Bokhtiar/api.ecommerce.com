@@ -176,11 +176,31 @@ const showHome = async(req, res, next) => {
     next(error);
   }
 }
+
+
+/*Show*/
+const Show = async (req, res, next) => {
+  try {
+    const items = [];
+    const {id} = req.params
+    const results = await categories.findById(id);
+
+    res.status(200).json({
+      status: true,
+      data: results,
+    });
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
+};
+
 module.exports = {
   index,
   store,
   update,
   status,
   destroy,
-  showHome
+  showHome,
+  Show
 };

@@ -7,9 +7,9 @@ const list = async (req, res, next) => {
     let currentPage = parseInt(req.query.page) || 1
     let itemPerPage = 12
     const items = [];
-    const results = await products.find()
-                          .skip((itemPerPage * currentPage) - itemPerPage)
-                          .limit(itemPerPage);
+    const results = await products.find();
+                          // .skip((itemPerPage * currentPage) - itemPerPage)
+                          // .limit(itemPerPage);
     let totalProduct = await products.countDocuments()
     let totalPage = parseInt(totalProduct / itemPerPage)
 
@@ -82,6 +82,7 @@ const show = async (req, res, next) => {
     const item = [];
     const { id } = req.params;
     const element = await products.findById(id);
+    
     if (element) {
       item.push({
         _id: element._id,
