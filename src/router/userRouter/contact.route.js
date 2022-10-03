@@ -3,4 +3,4 @@ const ContactController = require('../../controller/userController/ContactContro
     
     UserContactRoute.post('/', ContactController.Store)
 
-module.exports = UserContactRoute
+module.exports = UserContactRoute 
