@@ -8,4 +8,4 @@ cartRoute.post('/:id', cartController.store)
 cartRoute.delete('/:id', cartController.destroy)
 cartRoute.get('/number', cartController.Number)
 
-module.exports = cartRoute
+module.exports = cartRoute   
