@@ -40,9 +40,10 @@ const newSchema = new Schema({
         require: true
     },
     
-    payment_Type: {
+    payment_type: {
         type: String,
-        require: true
+        require: true,
+        trim: true,
     },
 
     

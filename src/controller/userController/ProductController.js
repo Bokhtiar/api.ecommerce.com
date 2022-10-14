@@ -154,10 +154,11 @@ const CategoryProductList = async(req, res, next) => {
 const Search = async(req, res, next) => {
   try {
     const items = [];
-    const {search} = req.params 
+    const {search} = req.params
     var query = { name: search };
-    const results = await products.find(query)
 
+    const results = await products.find(query)
+    console.log(results)
     if (results && results.length > 0) {
       for (let i = 0; i < results.length; i++) {
         const element = results[i];
@@ -178,7 +179,7 @@ const Search = async(req, res, next) => {
     
     res.status(201).json({
       status: true,
-      data: results
+      data: items
     }) 
   } catch (error) {
     console.log(error)
